@@ -1,0 +1,7 @@
+#%RAML 1.0 Trait
+usage: Apply this trait to enable API consumner to send their own correlation_id to track the transaction end to end. 
+headers:
+  x-correlation-id:
+    type: string
+    required: false
+    description: correlation-id to maintain over APIs

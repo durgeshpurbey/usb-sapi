@@ -1,0 +1,39 @@
+#%RAML 1.0 Library
+usage: Used for common data ypes across all domains
+
+types:
+  errorType:
+    description: This type is used for providing the deatils about error in generic form. All APIs should incorporate this object
+    type: object
+    properties:
+      code:
+        type: string
+        minLength: 1
+        maxLength: 5
+        required: true
+        example: "400"
+      message:
+        type: string
+        minLength: 1
+        maxLength: 100
+        required: true
+        example: "Bad request"
+      description:
+        type: string
+        minLength: 1
+        maxLength: 100
+        required: true
+        example: "Bad request"
+      dateTime:
+        type: string
+        required: true
+        example: "2022-08-09T05:58:02"
+      transactionId:
+        type: string
+        minLength: 1
+        maxLength: 100
+        required: true
+        example: "Bqwewe-3ewd-3r4rdf-454rd" 
+          
+          
+      

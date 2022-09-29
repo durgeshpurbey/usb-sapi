@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<sub-flow name="get-covid-report" doc:id="807da339-7f4b-4eb2-8339-65bb6c388e01" >
+		<db:select doc:name="Select" doc:id="d9055357-c115-49c2-b052-da5ee1fd83b9" config-ref="Database_Config">
+			<db:sql><![CDATA[#[vars.prepareDynamicQuery]]]></db:sql>
+		</db:select>
+	</sub-flow>
+	<sub-flow name="get-covid-case-by-national-id" doc:id="5d1af1d2-3758-4f39-b424-cb4d1546baf7" >
+		<db:select doc:name="FetchCaseByNationalId" doc:id="afd3c6cc-9553-47c8-adab-81b93e861105" config-ref="Database_Config">
+			<db:sql><![CDATA[SELECT CASE_ID, SOURCE, CASE_TYPE, FIRST_NAME, LAST_NAME, PHONE, EMAIL, DATE_OF_BIRTH, NATIONAL_ID, NATIONAL_ID_TYPE, STREET_ADDRESS, CITY, STATE, POSTAL, COUNTRY, CREATE_DATE, UPDATE_DATE, CREATE_BY, UPDATE_BY FROM CVD_CASE_MASTER where NATIONAL_ID= :nationalid]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	nationalid: attributes.uriParams.nationalID
+}]]]></db:input-parameters>
+		</db:select>
+	</sub-flow>
+	<sub-flow name="insert-case-sub-flow" doc:id="83fc40cf-b964-49d7-9f1f-4cf3bb817ae2" >
+		<db:insert doc:name="Insert" doc:id="6d8c94e3-69b2-41d2-a016-5341f5db0d3c" config-ref="Database_Config">
+			<db:sql><![CDATA[insert into cvd_case_master(source, case_type, first_name, last_name, phone, email, date_of_birth, national_id, national_id_type, street_address, city, state, postal, country, create_date, update_date, create_by, update_by) values(:source, :case_type, :first_name, :last_name, :phone, :email, TO_DATE(:date_of_birth, 'YYYY-MM-DD'), :national_id, :national_id_type, :street_address, :city, :state, :postal, :country, TO_DATE(:create_date, 'YYYY-MM-DD'), TO_DATE(:update_date, 'YYYY-MM-DD'), :create_by, :update_by)]]></db:sql>
+			<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
+		</db:insert>
+		<db:select doc:name="Select" doc:id="3e82d99c-e064-4153-a512-8bde1ec0c296" config-ref="Database_Config">
+			<db:sql><![CDATA[select max (case_id) as case_id from CVD_CASE_MASTER]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	national_id: vars.national_id
+}]]]></db:input-parameters>
+		</db:select>
+	</sub-flow>
+	<sub-flow name="update-covid-case" doc:id="61583c5e-4453-43a3-9313-a2da4c24fc26" >
+		<db:update doc:name="Update" doc:id="a22a0faf-5c3c-460d-9953-9df5088f85bb" config-ref="Database_Config">
+			<db:sql><![CDATA[update CVD_CASE_MASTER set SOURCE= :source, CASE_TYPE= :case_type, FIRST_NAME= :first_name, LAST_NAME= :last_name, PHONE= :phone, EMAIL= :email, DATE_OF_BIRTH= TO_DATE(:date_of_birth, 'YYYY-MM-DD'), NATIONAL_ID= :national_id, NATIONAL_ID_TYPE= :national_id_type, STREET_ADDRESS= :street_address, CITY= :city, STATE= :state, POSTAL= :postal, COUNTRY= :country, UPDATE_DATE=  TO_DATE(:update_date, 'YYYY-MM-DD'), UPDATE_BY= :update_by  where CASE_ID= :case_id]]></db:sql>
+			<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
+		</db:update>
+	</sub-flow>
+</mule>

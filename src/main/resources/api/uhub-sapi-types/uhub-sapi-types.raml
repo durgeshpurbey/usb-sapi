@@ -1,0 +1,331 @@
+#%RAML 1.0 Library
+usage: Type of uho sapi
+types:
+  covid-case-request-type:
+    type: object
+    description: This type is used for create type
+    properties:
+      source:
+        type: string
+        required: true
+        maxLength: 20
+        minLength: 1
+        example: "Hospital"
+      caseType:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "positive"
+      firstName:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "Durgesh"
+      lastName:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "Purbey"
+      phone:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 15
+        example: "7846985010"
+      email:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 50
+        example: "abc@gmail.com"
+      dateOfBirth:
+        type: date-only
+        required: true
+        example: "1989-04-26"
+      nationalID:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 15
+        example: "ASOPK8183A"
+      nationalIDType:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "PAN"
+      address:
+        type: object
+        properties:
+          streetAddress:
+            type: string
+            minLength: 1
+            maxLength: 200
+            required: true
+            example: "Kudlu gate Main Road"
+          city:
+            type: string
+            minLength: 1
+            maxLength: 20
+            required: true
+            example: "Bangalore"
+          state:
+            type: string
+            minLength: 1
+            maxLength: 20
+            required: true
+            example: "Karnataka"
+          postal:
+            type: string
+            required: true
+            example: "560068"
+          country:
+            type: string
+            minLength: 1
+            maxLength: 20
+            required: true
+            example: "India"
+            
+  covid-case-update-request-type:
+    type: object
+    description: This type is used for update type
+    properties:
+      caseId:
+        type: string
+        required: true
+        maxLength: 20
+        minLength: 1
+        example: "12345"
+      source:
+        type: string
+        required: true
+        maxLength: 20
+        minLength: 1
+        example: "Hospital"
+      caseType:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "positive"
+      firstName:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "Durgesh"
+      lastName:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "Purbey"
+      phone:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 15
+        example: "7846985010"
+      email:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 50
+        example: "abc@gmail.com"
+      dateOfBirth:
+        type: date-only
+        required: true
+        example: "1989-04-26"
+      nationalID:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 15
+        example: "ASOPK8183A"
+      nationalIDType:
+        type: string
+        required: true
+        minLength: 1
+        maxLength: 10
+        example: "PAN"
+      address:
+        type: object
+        properties:
+          streetAddress:
+            type: string
+            minLength: 1
+            maxLength: 200
+            required: true
+            example: "Kudlu gate Main Road"
+          city:
+            type: string
+            minLength: 1
+            maxLength: 20
+            required: true
+            example: "Bangalore"
+          state:
+            type: string
+            minLength: 1
+            maxLength: 20
+            required: true
+            example: "Karnataka"
+          postal:
+            type: string
+            required: true
+            example: "560068"
+          country:
+            type: string
+            minLength: 1
+            maxLength: 20
+            required: true
+            example: "India"          
+
+  covid-case-reponse-type:
+    type: object
+    description: Covid case response type
+    properties:
+      caseID:
+        type: string
+        required: true
+        maxLength: 10
+        minLength: 1
+        example: "12345"
+
+  get-case-by-national-id-response-type:
+    type: array
+    items:
+      type: object
+      description: contains each case object
+      properties:
+        source:
+          type: string
+          required: true
+          maxLength: 20
+          minLength: 1
+          example: "Hospital"
+        caseType:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 10
+          example: "positive"
+        firstName:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 10
+          example: "Durgesh"
+        lastName:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 10
+          example: "Purbey"
+        phone:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 15
+          example: "7846985010"
+        email:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 50
+          example: "abc@gmail.com"
+        dateOfBirth:
+          type: date-only
+          required: true
+          example: "1989-04-26"
+        nationalID:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 15
+          example: "ASOPK8183A"
+        nationalIDType:
+          type: string
+          required: true
+          minLength: 1
+          maxLength: 10
+          example: "PAN"
+        address:
+          type: object
+          properties:
+            streetAddress:
+              type: string
+              minLength: 1
+              maxLength: 200
+              required: true
+              example: "Kudlu gate Main Road"
+            city:
+              type: string
+              minLength: 1
+              maxLength: 20
+              required: true
+              example: "Bangalore"
+            state:
+              type: string
+              minLength: 1
+              maxLength: 20
+              required: true
+              example: "Karnataka"
+            postal:
+              type: string
+              required: true
+              example: "560068"
+            country:
+              type: string
+              minLength: 1
+              maxLength: 20
+              required: true
+              example: "India"
+  get-covid-case-report-type:
+    type: array
+    items:
+      type: object
+      description: contains each state object
+      properties:
+        state:
+          type: string
+          required: true
+          example: "Karnataka"
+        report:
+          type: object
+          properties:
+            total:
+              type: string
+              required: true
+              example: "12345"
+            positive:
+              type: string
+              required: true
+              example: "12345"
+            recovered:
+              type: string
+              required: true
+              example: "12345"
+            death:
+              type: string
+              required: true
+              example: "12345"
+            vaccinated:
+              type: string
+              required: true
+              example: "12345"
+                
+
+            
+            
+
+
+
+              
+
+
+  
+          
+          

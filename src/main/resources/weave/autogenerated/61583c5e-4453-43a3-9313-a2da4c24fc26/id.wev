@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_61583c5e_4453_43a3_9313_a2da4c24fc26_Output_Variables_case_id = {| caseId: Number |}
+
